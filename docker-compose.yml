@@ -7,13 +7,11 @@ services:
     ports:
       - 5000:5000
     environment:
-      - DATABASE_URL=postgres://postgres:root@db:5432/pgdb_docker
+      - DATABASE_URL=postgres://postgres:root@ly:5432/postgres
       - SECRET_KEY=09d25e094faa6ca2556c818166b7iou563b93f7099fezr0f4caa6cf63b88e8d3e7
     volumes:
       - ./services/backend:/app
     command: uvicorn src.main:app --reload --host 0.0.0.0 --port 5000
-    depends_on:
-      - db
 
   frontend:
     build: ./services/frontend
@@ -30,7 +28,7 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=root
-      - POSTGRES_DB=pgdb_docker
+      - POSTGRES_DB=postgres
     volumes:
       - pgdata:/var/lib/docker/volumes/pgdata/_data
 
